@@ -2,16 +2,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { CreateTicketInput, Ticket, TicketFilters, UpdateTicketInput, TicketStatus } from '../domain/ticket';
 
 /**
- * Repositorio em memoria. Escopo desta entrega (Entrega 1) e o harness de
- * testes e a especificacao; persistencia real (ex: Postgres) fica registrada
- * como trabalho futuro no ADR-0002.
+ * Repositorio em memoria (estado por processo). Persistencia real (ex: Postgres)
+ * fica registrada como trabalho futuro no ADR-0002.
  */
 export class TicketRepository {
   private tickets: Map<string, Ticket> = new Map();
-
-  clear(): void {
-    this.tickets.clear();
-  }
 
   create(input: CreateTicketInput): Ticket {
     const now = new Date().toISOString();
@@ -76,6 +71,3 @@ export class TicketRepository {
     return this.tickets.delete(id);
   }
 }
-
-// Instancia singleton usada pela aplicacao (estado em memoria por processo).
-export const ticketRepository = new TicketRepository();
