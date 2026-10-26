@@ -6,6 +6,7 @@ module.exports = {
   testMatch: ['**/*.test.ts'],
   collectCoverageFrom: ['src/**/*.ts', '!src/server.ts'],
   coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'text-summary', 'html', 'json-summary'],
   coverageThreshold: {
     global: {
       statements: 80,

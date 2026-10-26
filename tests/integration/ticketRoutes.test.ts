@@ -147,6 +147,18 @@ describe('Ticket routes (integracao)', () => {
     });
   });
 
+  describe('corpo JSON malformado', () => {
+    it('retorna 400 ValidationError em vez de 500 (edge case)', async () => {
+      const res = await request(app)
+        .post('/api/tickets')
+        .set('Content-Type', 'application/json')
+        .send('{"title":');
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe('ValidationError');
+      expect(res.body.details).toEqual({ body: 'JSON malformado' });
+    });
+  });
+
   describe('rota desconhecida', () => {
     it('retorna 404 padronizado (edge case)', async () => {
       const res = await request(app).get('/rota/que/nao/existe');

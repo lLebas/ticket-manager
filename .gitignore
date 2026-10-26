@@ -1,7 +1,17 @@
+# dependencias e builds
 node_modules/
 dist/
 coverage/
+*.tsbuildinfo
+
+# variaveis de ambiente (apenas o exemplo e versionado)
 .env
+.env.*
+!.env.example
+
+# logs e arquivos temporarios
 *.log
-.DS_Store
 npm-debug.log*
+docs/logs/
+.DS_Store
+Thumbs.db

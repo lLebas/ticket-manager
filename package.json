@@ -1,7 +1,7 @@
 {
   "name": "ticket-manager-api",
-  "version": "0.1.0",
-  "description": "API de gestao de tarefas/tickets - Entrega 1 (Ambiente, Especificacao Tecnica e Test Harness)",
+  "version": "1.0.0",
+  "description": "API de gestao de tarefas/tickets com fluxo Spec-Driven Development (SDD)",
   "main": "dist/server.js",
   "engines": {
     "node": ">=20"

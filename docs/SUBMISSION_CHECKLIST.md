@@ -27,7 +27,7 @@ e um roteiro para montar esse PDF; ele mesmo nao deve ser o PDF enviado.
      ```
 
 4. **Prints/logs do pipeline de testes rodando.**
-   - Log completo ja disponivel em `docs/logs/test-run.log` (pode ser colado como
+   - Log completo ja disponivel em `docs/evidencias/test-report.txt` (pode ser colado como
      texto no PDF ou anexado como print de terminal).
    - Sugestao: apos publicar no GitHub, tambem incluir um print da execucao do
      workflow de CI (`.github/workflows/ci.yml`) na aba **Actions** do repositorio,
@@ -47,7 +47,7 @@ e um roteiro para montar esse PDF; ele mesmo nao deve ser o PDF enviado.
 | Agente de IA configurado (contexto/regras) | `CLAUDE.md`, `docs/adr/0003-*.md` |
 | Empacotamento do ambiente (Docker) | `Dockerfile`, `docker-compose.yml` |
 | Harness de testes + suite inicial | `tests/unit/`, `tests/integration/` |
-| Relatorio/logs de execucao dos testes | `docs/EXECUTION_REPORT.md`, `docs/logs/test-run.log` |
+| Relatorio/logs de execucao dos testes | `docs/EXECUTION_REPORT.md`, `docs/evidencias/test-report.txt` |
 
 ## Passos restantes (fora do escopo do que pode ser gerado automaticamente)
 
