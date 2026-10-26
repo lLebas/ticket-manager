@@ -16,7 +16,7 @@ npm run lint        # eslint, sem erros
 npm run test:coverage
 ```
 
-## Resultado da ultima execucao (evidencia completa em `docs/logs/test-run.log`)
+## Resultado da ultima execucao (evidencia completa em `docs/evidencias/test-report.txt`)
 
 ```
 Test Suites: 3 passed, 3 total
@@ -67,7 +67,7 @@ functions, 70% branches — **atingido** em todas as metricas globais.
 
 Apos `npm run build`, o binario `dist/server.js` foi executado diretamente e validado
 com `curl` contra `/health`, `POST /api/tickets` (sucesso e falha de validacao) e
-`GET /api/tickets` — evidencia completa em `docs/logs/test-run.log` (secao final).
+`GET /api/tickets` — evidencia completa em `docs/evidencias/test-report.txt` (secao final).
 
 ## Divergencia encontrada durante a execucao
 

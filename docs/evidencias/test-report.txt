@@ -1,0 +1,120 @@
+# Relatorio de testes - ticket-manager-api v1.0.0
+# Data: 2026-10-25 22:36 -0300 | Node v24.19.0 | npm 11.17.0 | MINGW64_NT-10.0-26200
+# Comando: npm run test:coverage
+
+
+> ticket-manager-api@1.0.0 test:coverage
+> jest --runInBand --coverage
+
+PASS tests/integration/ticketRoutes.test.ts
+  Ticket routes (integracao)
+    GET /health
+      √ retorna 200 e status ok (32 ms)
+    POST /api/tickets
+      √ cria um ticket e retorna 201 (27 ms)
+      √ retorna 400 com detalhes de campo quando title esta ausente (edge case) (8 ms)
+      √ retorna 400 quando priority e invalida (6 ms)
+    GET /api/tickets
+      √ lista tickets com metadados de paginacao (30 ms)
+      √ filtra por query string (priority) (18 ms)
+      √ retorna lista vazia quando nao ha tickets (edge case) (4 ms)
+    GET /api/tickets/:id
+      √ retorna 404 para id inexistente (edge case) (4 ms)
+      √ retorna o ticket correspondente (9 ms)
+    PATCH /api/tickets/:id
+      √ atualiza campos parciais (9 ms)
+      √ retorna 404 ao atualizar ticket inexistente (5 ms)
+      √ retorna 400 quando o corpo esta vazio (edge case) (8 ms)
+    PATCH /api/tickets/:id/status
+      √ permite transicao valida todo -> in_progress (9 ms)
+      √ retorna 409 para transicao invalida todo -> done (edge case / regra de negocio) (9 ms)
+      √ retorna 400 para valor de status desconhecido (9 ms)
+    DELETE /api/tickets/:id
+      √ remove o ticket e retorna 204 (12 ms)
+      √ retorna 404 ao deletar ticket ja removido (edge case) (11 ms)
+    corpo JSON malformado
+      √ retorna 400 ValidationError em vez de 500 (edge case) (9 ms)
+    rota desconhecida
+      √ retorna 404 padronizado (edge case) (6 ms)
+
+PASS tests/unit/ticketService.test.ts
+  TicketService
+    create
+      √ cria um ticket com status inicial "todo" e prioridade padrao "medium" (1 ms)
+      √ respeita a prioridade informada
+    getById
+      √ retorna o ticket quando existe
+      √ lanca NotFoundError quando o ticket nao existe (edge case) (12 ms)
+    list
+      √ lista todos os tickets com paginacao padrao (1 ms)
+      √ filtra por prioridade
+      √ filtra por assignee (1 ms)
+      √ retorna lista vazia quando nenhum ticket casa com o filtro (edge case)
+      √ pagina corretamente com pageSize customizado
+    update
+      √ atualiza campos parciais preservando o restante
+      √ lanca NotFoundError ao atualizar ticket inexistente (edge case) (1 ms)
+    transitionStatus
+      √ permite a transicao todo -> in_progress
+      √ permite o fluxo completo todo -> in_progress -> in_review -> done
+      √ permite reabrir um ticket "done" para "todo" (1 ms)
+      √ rejeita pular etapas: todo -> done diretamente (edge case / regra de negocio)
+      √ e idempotente quando o status de destino e igual ao atual
+      √ lanca NotFoundError ao transicionar ticket inexistente (edge case)
+    delete
+      √ remove um ticket existente
+      √ lanca NotFoundError ao deletar ticket inexistente (edge case)
+
+PASS tests/unit/ticketValidation.test.ts
+  ticketValidation
+    validateCreateTicketInput
+      √ aceita um payload minimo valido (1 ms)
+      √ rejeita quando title esta ausente (17 ms)
+      √ rejeita title menor que o minimo (edge case) (1 ms)
+      √ rejeita title maior que o maximo (edge case)
+      √ rejeita priority invalida (1 ms)
+      √ rejeita corpo que nao e objeto (edge case) (1 ms)
+      √ rejeita tags com item vazio ou muito longo (1 ms)
+      √ aceita tags validas
+    validateUpdateTicketInput
+      √ rejeita corpo vazio (edge case) (1 ms)
+      √ aceita atualizacao parcial valida
+      √ rejeita assignee vazio (1 ms)
+    validateStatusTransitionBody
+      √ aceita status valido
+      √ rejeita status ausente (1 ms)
+      √ rejeita status desconhecido (edge case)
+
+----------------------|---------|----------|---------|---------|------------------------------------
+File                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                  
+----------------------|---------|----------|---------|---------|------------------------------------
+All files             |    91.2 |     79.2 |   97.72 |   93.04 |                                    
+ src                  |     100 |        0 |     100 |     100 |                                    
+  app.ts              |     100 |        0 |     100 |     100 | 7                                  
+ src/controllers      |     100 |       50 |     100 |     100 |                                    
+  ticketController.ts |     100 |       50 |     100 |     100 | 24-25                              
+ src/domain           |     100 |      100 |     100 |     100 |                                    
+  ticket.ts           |     100 |      100 |     100 |     100 |                                    
+ src/errors           |     100 |      100 |     100 |     100 |                                    
+  AppError.ts         |     100 |      100 |     100 |     100 |                                    
+ src/middlewares      |   81.81 |      100 |     100 |   81.81 |                                    
+  errorHandler.ts     |   81.81 |      100 |     100 |   81.81 | 21-22                              
+ src/repository       |   89.74 |    76.19 |    90.9 |     100 |                                    
+  ticketRepository.ts |   89.74 |    76.19 |    90.9 |     100 | 35,42-64                           
+ src/services         |     100 |      100 |     100 |     100 |                                    
+  ticketService.ts    |     100 |      100 |     100 |     100 |                                    
+ src/validation       |   85.04 |    77.96 |     100 |   85.41 |                                    
+  ticketValidation.ts |   85.04 |    77.96 |     100 |   85.41 | 25-26,36-41,59,66-67,70-71,118,148 
+----------------------|---------|----------|---------|---------|------------------------------------
+
+=============================== Coverage summary ===============================
+Statements   : 91.2% ( 228/250 )
+Branches     : 79.2% ( 80/101 )
+Functions    : 97.72% ( 43/44 )
+Lines        : 93.04% ( 214/230 )
+================================================================================
+Test Suites: 3 passed, 3 total
+Tests:       52 passed, 52 total
+Snapshots:   0 total
+Time:        4.397 s
+Ran all test suites.

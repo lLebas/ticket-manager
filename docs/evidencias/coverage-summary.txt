@@ -1,0 +1,33 @@
+# Resumo de cobertura - ticket-manager-api v1.0.0
+# Data: 2026-10-25 22:36 -0300 | Node v24.19.0
+# Gerado por: npm run test:coverage (relatorio HTML completo em coverage/index.html)
+# Limiar (jest.config.js): statements 80% | branches 70% | functions 80% | lines 80%
+
+----------------------|---------|----------|---------|---------|------------------------------------
+File                  | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                  
+----------------------|---------|----------|---------|---------|------------------------------------
+All files             |    91.2 |     79.2 |   97.72 |   93.04 |                                    
+ src                  |     100 |        0 |     100 |     100 |                                    
+  app.ts              |     100 |        0 |     100 |     100 | 7                                  
+ src/controllers      |     100 |       50 |     100 |     100 |                                    
+  ticketController.ts |     100 |       50 |     100 |     100 | 24-25                              
+ src/domain           |     100 |      100 |     100 |     100 |                                    
+  ticket.ts           |     100 |      100 |     100 |     100 |                                    
+ src/errors           |     100 |      100 |     100 |     100 |                                    
+  AppError.ts         |     100 |      100 |     100 |     100 |                                    
+ src/middlewares      |   81.81 |      100 |     100 |   81.81 |                                    
+  errorHandler.ts     |   81.81 |      100 |     100 |   81.81 | 21-22                              
+ src/repository       |   89.74 |    76.19 |    90.9 |     100 |                                    
+  ticketRepository.ts |   89.74 |    76.19 |    90.9 |     100 | 35,42-64                           
+ src/services         |     100 |      100 |     100 |     100 |                                    
+  ticketService.ts    |     100 |      100 |     100 |     100 |                                    
+ src/validation       |   85.04 |    77.96 |     100 |   85.41 |                                    
+  ticketValidation.ts |   85.04 |    77.96 |     100 |   85.41 | 25-26,36-41,59,66-67,70-71,118,148 
+----------------------|---------|----------|---------|---------|------------------------------------
+
+=============================== Coverage summary ===============================
+Statements   : 91.2% ( 228/250 )
+Branches     : 79.2% ( 80/101 )
+Functions    : 97.72% ( 43/44 )
+Lines        : 93.04% ( 214/230 )
+================================================================================
