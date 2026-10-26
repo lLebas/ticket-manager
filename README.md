@@ -245,8 +245,7 @@ CLAUDE.md              contexto/regras para o agente de IA no fluxo SDD
 
 | Nome | RA |
 |---|---|
-| <NOME COMPLETO 1> | <RA1> |
-| <NOME COMPLETO 2> | <RA2> |
+| Calebe Xavier de Medeiros | 22609882 |
 
 ## Licenca
 
