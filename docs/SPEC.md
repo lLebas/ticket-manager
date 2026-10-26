@@ -121,6 +121,9 @@ de banco de dados real sem alterar `services` ou `controllers` (ver ADR-0002).
 |---|---|---|
 | 2026-09-14 | `PATCH /api/tickets/:id` retornava 400 em um teste que usava `title` invalido (`"X"`, 1 caractere) ao testar 404 em ticket inexistente. Corrigido o **teste** (nao a API) para usar um `title` valido, isolando o cenario de "recurso nao encontrado" do cenario de "validacao de entrada". | Execucao do harness de testes revelou ambiguidade entre RN01 (validacao) e RN03 (recurso inexistente); a ordem de validacao (payload antes de existencia) foi mantida por ser a pratica REST recomendada, e o teste foi ajustado para exercitar exclusivamente o cenario pretendido. |
 | 2026-09-14 | Adicionada regra de idempotencia em RN02 (transicionar para o mesmo status atual retorna 200 sem erro) | Evita que clientes tenham que tratar um caso de erro para uma chamada logicamente no-op. |
+| 2026-10-25 | Corpo JSON malformado passou a retornar `400 ValidationError` com `details: { body: "JSON malformado" }` (antes caia no handler generico e retornava `500 InternalServerError`). | Revisao da release v1.0.0 revelou violacao de RNF02 (entrada invalida deve gerar 400). Corrigido em `middlewares/errorHandler.ts` com teste de integracao dedicado. |
+| 2026-10-25 | Registrado como comportamento as-built (nao alterado): filtros `status`/`priority` invalidos na query string de `GET /api/tickets` nao sao validados e resultam em lista vazia (200); `page`/`pageSize` invalidos ou <= 0 caem nos padroes `1`/`20`, sem limite maximo de `pageSize`. | Comportamento tolerante aceito para a v1.0.0; validacao estrita de query fica como trabalho futuro (ver `docs/SDD-as-built.md`, secao Divergencias). |
+| 2026-10-25 | Removidos `TicketRepository.clear()` e o singleton `ticketRepository`, que nao eram usados. | Higienizacao para a release v1.0.0; a app injeta o repositorio via `createApp()`. |
 
 ## 8. Fora de escopo (Entrega 1)
 

@@ -42,3 +42,30 @@ jobs:
         with:
           name: coverage-report
           path: coverage/
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build images
+        run: docker compose --profile test build
+
+      - name: Run tests in container
+        run: docker compose run --rm test
+
+      - name: Smoke test (docker compose up)
+        run: |
+          docker compose up -d --wait api
+          curl -fsS http://localhost:3000/health
+          curl -fsS -X POST http://localhost:3000/api/tickets -H 'Content-Type: application/json' -d '{"title":"Smoke test CI"}'
+          curl -fsS http://localhost:3000/api/tickets
+
+      - name: Container logs
+        if: always()
+        run: docker compose logs api
+
+      - name: Shutdown
+        if: always()
+        run: docker compose down
